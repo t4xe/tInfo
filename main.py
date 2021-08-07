@@ -1,11 +1,14 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from platform import node, machine, processor, platform, system, version
+from datetime import datetime
 import psutil
 
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(541, 328)
+        Form.setMaximumSize(541, 328)
+        Form.setMinimumSize(541, 328)
         self.cpuDetailsLabel = QtWidgets.QLabel(Form)
         self.cpuDetailsLabel.setGeometry(QtCore.QRect(10, 21, 101, 21))
         font = QtGui.QFont()
@@ -13,18 +16,18 @@ class Ui_Form(object):
         font.setPointSize(14)
         self.cpuDetailsLabel.setFont(font)
         self.cpuDetailsLabel.setObjectName("cpuDetailsLabel")
-        self.cpuCurrFreqLabel = QtWidgets.QLabel(Form)
-        self.cpuCurrFreqLabel.setGeometry(QtCore.QRect(10, 50, 131, 31))
+        self.cpuBaseFreqLabel = QtWidgets.QLabel(Form)
+        self.cpuBaseFreqLabel.setGeometry(QtCore.QRect(10, 50, 131, 31))
         
         font = QtGui.QFont()
         font.setFamily("Sitka Banner")
         font.setPointSize(12)
-        self.cpuCurrFreqLabel.setFont(font)
-        self.cpuCurrFreqLabel.setObjectName("cpuCurrFreqLabel")
-        self.cpuCurrFreqLine = QtWidgets.QLineEdit(Form)
-        self.cpuCurrFreqLine.setGeometry(QtCore.QRect(140, 60, 125, 16))
-        self.cpuCurrFreqLine.setReadOnly(True)
-        self.cpuCurrFreqLine.setObjectName("cpuCurrFreqLine")
+        self.cpuBaseFreqLabel.setFont(font)
+        self.cpuBaseFreqLabel.setObjectName("cpuBaseFreqLabel")
+        self.cpuBaseFreqLine = QtWidgets.QLineEdit(Form)
+        self.cpuBaseFreqLine.setGeometry(QtCore.QRect(140, 60, 125, 16))
+        self.cpuBaseFreqLine.setReadOnly(True)
+        self.cpuBaseFreqLine.setObjectName("cpuBaseFreqLine")
         
         self.cpuMaxFreqLabel = QtWidgets.QLabel(Form)
         self.cpuMaxFreqLabel.setGeometry(QtCore.QRect(10, 85, 103, 23))
@@ -88,7 +91,7 @@ class Ui_Form(object):
         self.cpuMaxFreqLine.setObjectName("cpuMaxFreqLine")
         
         self.cpuMinFreqLine = QtWidgets.QLineEdit(Form)
-        self.cpuMinFreqLine.setGeometry(QtCore.QRect(140, 125, 125, 16))
+        self.cpuMinFreqLine.setGeometry(QtCore.QRect(140, 120, 125, 16))
         self.cpuMinFreqLine.setReadOnly(True)
         self.cpuMinFreqLine.setObjectName("cpuMinFreqLine")
         
@@ -164,7 +167,7 @@ class Ui_Form(object):
         self.ramAvaRamLine.setObjectName("ramAvaRamLine")
         
         self.ramUsedRamLine = QtWidgets.QLineEdit(Form)
-        self.ramUsedRamLine.setGeometry(QtCore.QRect(410, 125, 125, 16))
+        self.ramUsedRamLine.setGeometry(QtCore.QRect(410, 120, 125, 16))
         self.ramUsedRamLine.setReadOnly(True)
         self.ramUsedRamLine.setObjectName("ramUsedRamLine")
         
@@ -232,9 +235,17 @@ class Ui_Form(object):
         self.platformTypeLine.setObjectName("platformTypeLine")
         
         self.osDetailsLine = QtWidgets.QLineEdit(Form)
-        self.osDetailsLine.setGeometry(QtCore.QRect(410, 300, 125, 16))
+        self.osDetailsLine.setGeometry(QtCore.QRect(410, 305, 125, 16))
         self.osDetailsLine.setReadOnly(True)
         self.osDetailsLine.setObjectName("osDetailsLine")
+        
+        self.dateLabel = QtWidgets.QLabel(Form)
+        font = QtGui.QFont()
+        font.setFamily("Sitka Banner")
+        font.setPointSize(12)
+        self.dateLabel.setFont(font)
+        self.dateLabel.setGeometry(QtCore.QRect(5, 2, 140, 21))     
+        self.dateLabel.setObjectName("dateLabel")     
 
         self.lineEditContent()
 
@@ -242,10 +253,13 @@ class Ui_Form(object):
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
+        date = datetime.now()
+        currentDate = datetime.strftime(date, "%D")
+        
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "tInfo"))
         self.cpuDetailsLabel.setText(_translate("Form", "CPU Details:"))
-        self.cpuCurrFreqLabel.setText(_translate("Form", "Current Frequency:"))
+        self.cpuBaseFreqLabel.setText(_translate("Form", "Base Frequency:"))
         self.cpuMaxFreqLabel.setText(_translate("Form", "Max. Frequency:"))
         self.cpuMinFreqLabel.setText(_translate("Form", "Min. Frequency:"))
         self.cpuNphysLabel.setText(_translate("Form", "Num. of phys. cores:"))
@@ -263,6 +277,7 @@ class Ui_Form(object):
         self.machineTypeLabel.setText(_translate("Form", "Machine Type:"))
         self.platformTypeLabel.setText(_translate("Form", "Platform Type:"))
         self.osDetailsLabel.setText(_translate("Form", "OS Details:"))
+        self.dateLabel.setText(_translate("Form", "Date: " + currentDate)) 
         
     def lineEditContent(self):
         cpuCurrFreq = str(psutil.cpu_freq().current)
@@ -275,16 +290,16 @@ class Ui_Form(object):
         cpuCurrUtil = str(psutil.cpu_percent(interval=1))
         cpuCurrPcpu = str(psutil.cpu_percent(interval=1, percpu=True))
         
-        ramTotal = round(psutil.virtual_memory().total/1000000000, 2)
+        ramTotal = round(psutil.virtual_memory().total/1000000000, 2) - 1
         ramTotalRam = ("{0} GB".format(ramTotal))
         
         ramAva = round(psutil.virtual_memory().available/1000000000, 2)
         ramAvaRam = ("{0} GB".format(ramAva))
         
-        ramUsed = round(psutil.virtual_memory().used/1000000000, 2)
+        ramUsed = round(psutil.virtual_memory().used/1000000000, 2) - 1
         ramUsedRam = ("{0} GB".format(ramUsed))
         
-        ramRamUsage = str(psutil.virtual_memory().percent)
+        ramRamUsage = str(psutil.virtual_memory().percent) + "%"
 
         pcNwName = str(node())
         machineType = str(machine())
@@ -292,7 +307,7 @@ class Ui_Form(object):
         platformType = str(platform())
         osDetails = str(system() + " " + version())
         
-        self.cpuCurrFreqLine.setText(cpuCurrFreq)
+        self.cpuBaseFreqLine.setText(cpuCurrFreq)
         self.cpuMinFreqLine.setText(cpuMinFreq)
         self.cpuMaxFreqLine.setText(cpuMaxFreq)
         self.cpuNphysLine.setText(cpuNphys)
