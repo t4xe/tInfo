@@ -1,0 +1,14 @@
+QLabel#cpuDetailsLabel, QLabel#ramDetailsLabel, QLabel#generalInformationLabel {
+	font-family:Roboto Black 900;
+	font-size:18px;
+}
+
+QLabel {
+	font-family:Roboto;
+	font-size:14px;
+}
+
+QPushButton#refreshButton {
+	font-family:Roboto;
+	font-size:12px;	
+}
