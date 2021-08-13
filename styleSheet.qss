@@ -12,3 +12,8 @@ QPushButton#refreshButton {
 	font-family:Roboto;
 	font-size:12px;	
 }
+
+QCheckBox#themeCheckBox {
+	font-family:Roboto;
+	font-size:12px;	
+}
