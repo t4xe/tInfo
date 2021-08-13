@@ -1,6 +1,8 @@
+#tInfo v1.3 by t4xe.
 from PyQt5 import QtCore, QtGui, QtWidgets
 from platform import node, machine, processor, platform, system, version
 from datetime import datetime
+import qdarkstyle
 import psutil
     
 class Ui_Form(object):
@@ -9,6 +11,9 @@ class Ui_Form(object):
         Form.resize(541, 328)
         Form.setMaximumSize(541, 328)
         Form.setMinimumSize(541, 328)
+        
+        lightTheme = (open("lightTheme.qss", "r").read())
+        darkTheme = qdarkstyle.load_stylesheet_pyqt5()
         
         self.cpuDetailsLabel = QtWidgets.QLabel(Form)
         self.cpuDetailsLabel.setGeometry(QtCore.QRect(10, 25, 101, 21))
@@ -24,7 +29,7 @@ class Ui_Form(object):
         self.cpuBaseFreqLine.setObjectName("cpuBaseFreqLine")
         
         self.cpuMaxFreqLabel = QtWidgets.QLabel(Form)
-        self.cpuMaxFreqLabel.setGeometry(QtCore.QRect(10, 85, 103, 23))
+        self.cpuMaxFreqLabel.setGeometry(QtCore.QRect(10, 85, 111, 23))
         self.cpuMaxFreqLabel.setObjectName("cpuMaxFreqLabel")
         
         self.cpuMinFreqLabel = QtWidgets.QLabel(Form)
@@ -36,7 +41,7 @@ class Ui_Form(object):
         self.cpuNphysLabel.setObjectName("cpuNphysLabel")
         
         self.cpuNlogLabel = QtWidgets.QLabel(Form)
-        self.cpuNlogLabel.setGeometry(QtCore.QRect(10, 185, 121, 21))
+        self.cpuNlogLabel.setGeometry(QtCore.QRect(10, 185, 131, 21))
         self.cpuNlogLabel.setObjectName("cpuNlogLabel")
         
         self.cpuCurrUtilLabel = QtWidgets.QLabel(Form)
@@ -137,14 +142,14 @@ class Ui_Form(object):
         self.machineTypeLabel = QtWidgets.QLabel(Form)
         self.machineTypeLabel.setGeometry(QtCore.QRect(290, 234, 111, 41))
         self.machineTypeLabel.setObjectName("machineTypeLabel")
-        
-        self.platformTypeLabel = QtWidgets.QLabel(Form)
-        self.platformTypeLabel.setGeometry(QtCore.QRect(290, 259, 101, 51))
-        self.platformTypeLabel.setObjectName("platformTypeLabel")
-        
+ 
         self.osDetailsLabel = QtWidgets.QLabel(Form)
-        self.osDetailsLabel.setGeometry(QtCore.QRect(290, 300, 81, 21))
+        self.osDetailsLabel.setGeometry(QtCore.QRect(290, 275, 81, 21))
         self.osDetailsLabel.setObjectName("osDetailsLabel")
+ 
+        self.platformTypeLabel = QtWidgets.QLabel(Form)
+        self.platformTypeLabel.setGeometry(QtCore.QRect(290, 292, 101, 41))
+        self.platformTypeLabel.setObjectName("platformTypeLabel")
         
         self.pcNwNameLine = QtWidgets.QLineEdit(Form)
         self.pcNwNameLine.setGeometry(QtCore.QRect(410, 220, 125, 16))
@@ -157,12 +162,12 @@ class Ui_Form(object):
         self.machineTypeLine.setObjectName("machineTypeLine")
         
         self.platformTypeLine = QtWidgets.QLineEdit(Form)
-        self.platformTypeLine.setGeometry(QtCore.QRect(410, 276, 125, 16))
+        self.platformTypeLine.setGeometry(QtCore.QRect(410, 305, 125, 16))
         self.platformTypeLine.setReadOnly(True)
         self.platformTypeLine.setObjectName("platformTypeLine")
         
         self.osDetailsLine = QtWidgets.QLineEdit(Form)
-        self.osDetailsLine.setGeometry(QtCore.QRect(410, 305, 125, 16))
+        self.osDetailsLine.setGeometry(QtCore.QRect(410, 276, 125, 16))
         self.osDetailsLine.setReadOnly(True)
         self.osDetailsLine.setObjectName("osDetailsLine")
         
@@ -173,9 +178,18 @@ class Ui_Form(object):
         self.refreshButton = QtWidgets.QPushButton(Form)
         self.refreshButton.setGeometry(QtCore.QRect(5, 5, 80, 21))
         self.refreshButton.setObjectName("refreshButton")
+        
+        self.themeCheckBox = QtWidgets.QCheckBox(Form)
+        self.themeCheckBox.setGeometry(QtCore.QRect(90, 5, 80, 21))
+        self.themeCheckBox.setObjectName("themeCheckBox")
+        
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.lineEditContent)
+        self.timer.start(5000)
 
         self.lineEditContent()
         self.refreshButton.clicked.connect(self.lineEditContent)
+        self.themeCheckBox.stateChanged.connect(self.themeCheckBoxStateChanged)  
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -190,7 +204,7 @@ class Ui_Form(object):
         self.cpuBaseFreqLabel.setText(_translate("Form", "Base Frequency:"))
         self.cpuMaxFreqLabel.setText(_translate("Form", "Max. Frequency:"))
         self.cpuMinFreqLabel.setText(_translate("Form", "Min. Frequency:"))
-        self.cpuNphysLabel.setText(_translate("Form", "Num. of phys. cores:"))
+        self.cpuNphysLabel.setText(_translate("Form", "Num. of phs. cores:"))
         self.cpuNlogLabel.setText(_translate("Form", "Num. of log. cores:"))
         self.cpuCurrUtilLabel.setText(_translate("Form", "Curr. utilization:"))
         self.cpuCurrPcpuLabel.setText(_translate("Form", "Curr. per-cpu util.:"))
@@ -207,6 +221,7 @@ class Ui_Form(object):
         self.osDetailsLabel.setText(_translate("Form", "OS Details:"))
         self.dateLabel.setText(_translate("Form", "Date: " + currentDate)) 
         self.refreshButton.setText(_translate("Form", "Refresh"))
+        self.themeCheckBox.setText(_translate("Form", "Dark Mode"))
         
     def lineEditContent(self):
         cpuCurrFreq = str(psutil.cpu_freq().current)
@@ -224,7 +239,7 @@ class Ui_Form(object):
         ramTotal = round(psutil.virtual_memory().total/1000000000, 2) - 1
         ramTotalRam = ("{0} GB".format(ramTotal))
         
-        ramAva = round(psutil.virtual_memory().available/1000000000, 2)
+        ramAva = round(psutil.virtual_memory().available/1000000000, 2) - 1
         ramAvaRam = ("{0} GB".format(ramAva))
         
         ramUsed = round(psutil.virtual_memory().used/1000000000, 2) - 1
@@ -253,15 +268,22 @@ class Ui_Form(object):
         self.machineTypeLine.setText(machineType)
         self.cpuProcTypeLine.setText(processorType)
         self.platformTypeLine.setText(platformType)
-        self.osDetailsLine.setText(osDetails)    
+        self.osDetailsLine.setText(osDetails)  
+
+    def themeCheckBoxStateChanged(self):
+        lightTheme = (open("lightTheme.qss", "r").read())
+        darkTheme = qdarkstyle.load_stylesheet_pyqt5()
+        if self.themeCheckBox.isChecked():
+            app.setStyleSheet(lightTheme + darkTheme)
+        else:
+            app.setStyleSheet(lightTheme)   
      
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    app.setStyleSheet(open("styleSheet.qss", "r").read())
-    Form = QtWidgets.QWidget()
+    Form = QtWidgets.QWidget()  
+    app.setStyleSheet(open("lightTheme.qss", "r").read())
     ui = Ui_Form()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-
