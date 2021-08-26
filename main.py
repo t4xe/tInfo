@@ -1,4 +1,4 @@
-#tInfo v1.3 by t4xe.
+#tInfo v1.4 by t4xe.
 from PyQt5 import QtCore, QtGui, QtWidgets
 from platform import node, machine, processor, platform, system, version
 from datetime import datetime
@@ -12,15 +12,19 @@ class Ui_Form(object):
         Form.setMaximumSize(541, 328)
         Form.setMinimumSize(541, 328)
         
+        Form.setWindowIcon(QtGui.QIcon("icon.ico"))
         lightTheme = (open("lightTheme.qss", "r").read())
         darkTheme = qdarkstyle.load_stylesheet_pyqt5()
         
+        self.firstPixLabel = 10
+        self.secondPixLabel = 290
+        
         self.cpuDetailsLabel = QtWidgets.QLabel(Form)
-        self.cpuDetailsLabel.setGeometry(QtCore.QRect(10, 25, 101, 21))
+        self.cpuDetailsLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 25, 101, 21))
         self.cpuDetailsLabel.setObjectName("cpuDetailsLabel")
         
         self.cpuBaseFreqLabel = QtWidgets.QLabel(Form)
-        self.cpuBaseFreqLabel.setGeometry(QtCore.QRect(10, 50, 131, 31))
+        self.cpuBaseFreqLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 50, 131, 31))
         self.cpuBaseFreqLabel.setObjectName("cpuBaseFreqLabel")
         
         self.cpuBaseFreqLine = QtWidgets.QLineEdit(Form)
@@ -29,31 +33,31 @@ class Ui_Form(object):
         self.cpuBaseFreqLine.setObjectName("cpuBaseFreqLine")
         
         self.cpuMaxFreqLabel = QtWidgets.QLabel(Form)
-        self.cpuMaxFreqLabel.setGeometry(QtCore.QRect(10, 85, 111, 23))
+        self.cpuMaxFreqLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 85, 111, 23))
         self.cpuMaxFreqLabel.setObjectName("cpuMaxFreqLabel")
         
         self.cpuMinFreqLabel = QtWidgets.QLabel(Form)
-        self.cpuMinFreqLabel.setGeometry(QtCore.QRect(10, 110, 111, 31))
+        self.cpuMinFreqLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 110, 111, 31))
         self.cpuMinFreqLabel.setObjectName("cpuMinFreqLabel")
         
         self.cpuNphysLabel = QtWidgets.QLabel(Form)
-        self.cpuNphysLabel.setGeometry(QtCore.QRect(10, 150, 131, 31))
+        self.cpuNphysLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 150, 131, 31))
         self.cpuNphysLabel.setObjectName("cpuNphysLabel")
         
         self.cpuNlogLabel = QtWidgets.QLabel(Form)
-        self.cpuNlogLabel.setGeometry(QtCore.QRect(10, 185, 131, 21))
+        self.cpuNlogLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 185, 131, 21))
         self.cpuNlogLabel.setObjectName("cpuNlogLabel")
         
         self.cpuCurrUtilLabel = QtWidgets.QLabel(Form)
-        self.cpuCurrUtilLabel.setGeometry(QtCore.QRect(10, 235, 111, 21))
+        self.cpuCurrUtilLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 235, 111, 21))
         self.cpuCurrUtilLabel.setObjectName("cpuCurrUtilLabel")
         
         self.cpuCurrPcpuLabel = QtWidgets.QLabel(Form)
-        self.cpuCurrPcpuLabel.setGeometry(QtCore.QRect(10, 260, 121, 31))
+        self.cpuCurrPcpuLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 260, 121, 31))
         self.cpuCurrPcpuLabel.setObjectName("cpuCurrPcpuLabel")
         
         self.cpuProcTypeLabel = QtWidgets.QLabel(Form)
-        self.cpuProcTypeLabel.setGeometry(QtCore.QRect(10, 285, 101, 41))
+        self.cpuProcTypeLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 285, 101, 41))
         self.cpuProcTypeLabel.setObjectName("cpuProcTypeLabel")
         
         self.cpuMaxFreqLine = QtWidgets.QLineEdit(Form)
@@ -92,7 +96,7 @@ class Ui_Form(object):
         self.cpuProcTypeLine.setObjectName("cpuProcTypeLine")
         
         self.ramDetailsLabel = QtWidgets.QLabel(Form)
-        self.ramDetailsLabel.setGeometry(QtCore.QRect(290, 25, 101, 21))
+        self.ramDetailsLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 25, 101, 21))
         self.ramDetailsLabel.setObjectName("ramDetailsLabel")
         
         self.ramRamUsageLine = QtWidgets.QLineEdit(Form)
@@ -106,15 +110,15 @@ class Ui_Form(object):
         self.ramTotalRamLine.setObjectName("ramTotalRamLine")
         
         self.ramUsedRamLabel = QtWidgets.QLabel(Form)
-        self.ramUsedRamLabel.setGeometry(QtCore.QRect(290, 110, 91, 31))
+        self.ramUsedRamLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 110, 91, 31))
         self.ramUsedRamLabel.setObjectName("ramUsedRamLabel")
         
         self.ramAvaRamLabel = QtWidgets.QLabel(Form)
-        self.ramAvaRamLabel.setGeometry(QtCore.QRect(290, 85, 101, 21))
+        self.ramAvaRamLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 85, 101, 21))
         self.ramAvaRamLabel.setObjectName("ramAvaRamLabel")
         
         self.ramRamUsageLabel = QtWidgets.QLabel(Form)
-        self.ramRamUsageLabel.setGeometry(QtCore.QRect(290, 145, 81, 22))
+        self.ramRamUsageLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 145, 81, 22))
         self.ramRamUsageLabel.setObjectName("ramRamUsageLabel")
         
         self.ramAvaRamLine = QtWidgets.QLineEdit(Form)
@@ -128,7 +132,7 @@ class Ui_Form(object):
         self.ramUsedRamLine.setObjectName("ramUsedRamLine")
         
         self.ramTotalRamLabel = QtWidgets.QLabel(Form)
-        self.ramTotalRamLabel.setGeometry(QtCore.QRect(290, 50, 81, 31))
+        self.ramTotalRamLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 50, 81, 31))
         self.ramTotalRamLabel.setObjectName("ramTotalRamLabel")
         
         self.generalInformationLabel = QtWidgets.QLabel(Form)
@@ -136,19 +140,19 @@ class Ui_Form(object):
         self.generalInformationLabel.setObjectName("generalInformationLabel")
         
         self.pcNwNameLabel = QtWidgets.QLabel(Form)
-        self.pcNwNameLabel.setGeometry(QtCore.QRect(290, 209, 121, 31))
+        self.pcNwNameLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 209, 121, 31))
         self.pcNwNameLabel.setObjectName("pcNwNameLabel")
         
         self.machineTypeLabel = QtWidgets.QLabel(Form)
-        self.machineTypeLabel.setGeometry(QtCore.QRect(290, 234, 111, 41))
+        self.machineTypeLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 234, 111, 41))
         self.machineTypeLabel.setObjectName("machineTypeLabel")
  
         self.osDetailsLabel = QtWidgets.QLabel(Form)
-        self.osDetailsLabel.setGeometry(QtCore.QRect(290, 275, 81, 21))
+        self.osDetailsLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 275, 81, 21))
         self.osDetailsLabel.setObjectName("osDetailsLabel")
  
         self.platformTypeLabel = QtWidgets.QLabel(Form)
-        self.platformTypeLabel.setGeometry(QtCore.QRect(290, 292, 101, 41))
+        self.platformTypeLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 292, 101, 41))
         self.platformTypeLabel.setObjectName("platformTypeLabel")
         
         self.pcNwNameLine = QtWidgets.QLineEdit(Form)
@@ -275,8 +279,45 @@ class Ui_Form(object):
         darkTheme = qdarkstyle.load_stylesheet_pyqt5()
         if self.themeCheckBox.isChecked():
             app.setStyleSheet(lightTheme + darkTheme)
+            self.firstPixLabel = self.firstPixLabel - 5
+            self.secondPixLabel = self.secondPixLabel - 5
+            self.cpuDetailsLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 25, 101, 21))
+            self.cpuBaseFreqLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 50, 131, 31))
+            self.cpuMaxFreqLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 85, 111, 23))
+            self.cpuMinFreqLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 110, 111, 31))
+            self.cpuNphysLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 150, 131, 31))
+            self.cpuNlogLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 185, 131, 21))
+            self.ramDetailsLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 25, 101, 21))
+            self.ramUsedRamLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 110, 91, 31))
+            self.ramAvaRamLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 85, 101, 21))
+            self.ramTotalRamLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 50, 81, 31))
+            self.generalInformationLabel.setGeometry(QtCore.QRect(290, 184, 181, 21))
+            self.pcNwNameLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 209, 121, 31))
+            self.machineTypeLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 234, 111, 41))
+            self.platformTypeLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 292, 101, 41))
+            self.osDetailsLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 275, 81, 21))
+            self.dateLabel.setGeometry(QtCore.QRect(440, 5, 140, 21))   
+            
         else:
             app.setStyleSheet(lightTheme)   
+            self.firstPixLabel = self.firstPixLabel + 5
+            self.secondPixLabel = self.secondPixLabel + 5
+            self.cpuDetailsLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 25, 101, 21))
+            self.cpuBaseFreqLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 50, 131, 31))
+            self.cpuMaxFreqLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 85, 111, 23))
+            self.cpuMinFreqLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 110, 111, 31))
+            self.cpuNphysLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 150, 131, 31))
+            self.cpuNlogLabel.setGeometry(QtCore.QRect(self.firstPixLabel, 185, 131, 21))
+            self.ramDetailsLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 25, 101, 21))
+            self.ramUsedRamLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 110, 91, 31))
+            self.ramAvaRamLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 85, 101, 21))
+            self.ramTotalRamLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 50, 81, 31))
+            self.generalInformationLabel.setGeometry(QtCore.QRect(290, 184, 181, 21))
+            self.pcNwNameLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 209, 121, 31))
+            self.machineTypeLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 234, 111, 41))
+            self.platformTypeLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 292, 101, 41))
+            self.osDetailsLabel.setGeometry(QtCore.QRect(self.secondPixLabel, 275, 81, 21))
+            self.dateLabel.setGeometry(QtCore.QRect(440, 5, 140, 21))  
      
 if __name__ == "__main__":
     import sys
